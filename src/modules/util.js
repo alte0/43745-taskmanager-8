@@ -30,7 +30,49 @@ const clearChildEl = (el) => {
  * @param {Number} max
  * @return {Number}
  */
-const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-const getRandomBoolean = () => Math.random() >= 0.5;
+const getRndInteger = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
-export {getRndInteger, clearChildEl, renderData, getRandomBoolean};
+const getRandomBoolean = () => Math.random() >= 0.5;
+/**
+ * @param {Array} arr
+ * @param {HTMLElement} el
+ * @param {Function} FnTask
+ * @param {Function} FnTaskEdit
+ */
+const renderTasksDatafromClass = (arr, el, FnTask, FnTaskEdit) => {
+  for (const data of arr) {
+    const task = new FnTask(data);
+    const editTask = new FnTaskEdit(data);
+    el.appendChild(task.render());
+    task.onEdit = () => {
+      editTask.render();
+      el.replaceChild(editTask.element, task.element);
+      task.unrender();
+    };
+
+    editTask.onSubmit = () => {
+      task.render();
+      el.replaceChild(task.element, editTask.element);
+      editTask.unrender();
+    };
+  }
+};
+/**
+ * @param {String} template
+ * @return {HTMLElement} HTMLElement
+ */
+const createElement = (template) => {
+  const wrapperTemplate = document.createElement(`div`);
+  wrapperTemplate.innerHTML = template;
+  return wrapperTemplate.firstChild;
+};
+
+export {
+  getRndInteger,
+  clearChildEl,
+  renderData,
+  getRandomBoolean,
+  renderTasksDatafromClass,
+  createElement
+};
