@@ -1,17 +1,12 @@
-import {createElement} from "../modules/util";
+import ComponentTask from "./сomponent-task";
 
-export default class Task {
+export default class Task extends ComponentTask {
   constructor(data) {
-    this._title = data.title;
-    this._dueDate = data.dueDate;
-    this._tags = data.tags;
-    this._picture = data.picture;
-    this._repeatingDays = data.repeatingDays;
+    super();
 
-    this._element = null;
-    this._state = {
-      // Состояние компонента
-    };
+    this._title = data.title;
+    this._tags = data.tags;
+    this._repeatingDays = data.repeatingDays;
 
     this._onEdit = null;
     this._onEditButtonClick = this._onEditButtonClick.bind(this);
@@ -25,10 +20,6 @@ export default class Task {
     if (typeof this._onEdit === `function`) {
       this._onEdit();
     }
-  }
-
-  get element() {
-    return this._element;
   }
 
   set onEdit(fn) {
@@ -169,20 +160,12 @@ export default class Task {
       .addEventListener(`click`, this._onEditButtonClick.bind(this));
   }
 
-  render() {
-    this._element = createElement(this.template);
-    this.bind();
-    return this._element;
-  }
-
   unbind() {
     this._element
       .querySelector(`.card__btn--edit`)
       .addEventListener(`click`, this._onEditButtonClick);
   }
 
-  unrender() {
-    this.unbind();
-    this._element = null;
-  }
+  createListeners() { }
+  removeListeners() { }
 }
