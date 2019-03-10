@@ -1,14 +1,15 @@
-import {createElement} from "../modules/util";
+import ComponentTask from "./сomponent-task";
 
-export default class TaskEdit {
+export default class TaskEdit extends ComponentTask {
   constructor(data) {
+    super();
+
     this._title = data.title;
     this._dueDate = data.dueDate;
     this._tags = data.tags;
     this._picture = data.picture;
     this._repeatingDays = data.repeatingDays;
 
-    this._element = null;
     this._onSubmit = null;
     this._onSubmitButtonClick = this._onSubmitButtonClick.bind(this);
   }
@@ -26,10 +27,6 @@ export default class TaskEdit {
 
   set onSubmit(fn) {
     this._onSubmit = fn;
-  }
-
-  get element() {
-    return this._element;
   }
 
   get template() {
@@ -160,17 +157,6 @@ export default class TaskEdit {
     </article>`.trim();
   }
 
-  render() {
-    this._element = createElement(this.template);
-    this.bind();
-    return this._element;
-  }
-
-  unrender() {
-    this.unbind();
-    this._element = null;
-  }
-
   bind() {
     this._element
       .querySelector(`.card__form`)
@@ -182,4 +168,7 @@ export default class TaskEdit {
       .querySelector(`.card__btn--edit`)
       .addEventListener(`submit`, this._onSubmitButtonClick);
   }
+
+  createListeners() { }
+  removeListeners() { }
 }
