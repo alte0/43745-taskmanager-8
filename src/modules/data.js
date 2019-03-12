@@ -3,7 +3,8 @@ import {getRndInteger, getRandomBoolean} from "./util";
 const MIN_NUM = 0;
 const maxNums = [2, 4, 1];
 const tasks = [];
-let i = 0;
+let startNummberCards = 0;
+const endNummberCards = 1;
 
 const filters = [
   {
@@ -45,7 +46,10 @@ const task = () => ({
   title: [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`][
     getRndInteger(MIN_NUM, maxNums[0])
   ],
-  dueDate: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
+  dueDate: [
+    ``,
+    Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000
+  ][getRndInteger(MIN_NUM, maxNums[0])],
   tags: [new Set([`homework`, `theory`, `practice`]), ``][
     getRndInteger(MIN_NUM, maxNums[2])
   ],
@@ -66,9 +70,9 @@ const task = () => ({
   isDone: getRandomBoolean()
 });
 
-while (i < 8) {
+while (startNummberCards < endNummberCards) {
   tasks.push(task());
-  i++;
+  startNummberCards++;
 }
 
 export {tasks, filters};

@@ -41,20 +41,27 @@ const getRandomBoolean = () => Math.random() >= 0.5;
  * @param {Function} FnTaskEdit
  */
 const renderTasksDatafromClass = (arr, el, FnTask, FnTaskEdit) => {
-  for (const data of arr) {
-    const task = new FnTask(data);
-    const editTask = new FnTaskEdit(data);
-    el.appendChild(task.render());
-    task.onEdit = () => {
-      editTask.render();
-      el.replaceChild(editTask.element, task.element);
-      task.unrender();
+  for (const dataTask of arr) {
+    const taskComponent = new FnTask(dataTask);
+    const editTaskComponent = new FnTaskEdit(dataTask);
+    el.appendChild(taskComponent.render());
+    taskComponent.onEdit = () => {
+      editTaskComponent.render();
+      el.replaceChild(editTaskComponent.element, taskComponent.element);
+      taskComponent.unrender();
     };
 
-    editTask.onSubmit = () => {
-      task.render();
-      el.replaceChild(task.element, editTask.element);
-      editTask.unrender();
+    editTaskComponent.onSubmit = (newObject) => {
+      dataTask.title = newObject.title;
+      dataTask.tags = newObject.tags;
+      dataTask.color = newObject.color;
+      dataTask.repeatingDays = newObject.repeatingDays;
+      dataTask.dueDate = newObject.dueDate;
+
+      taskComponent.update(dataTask);
+      taskComponent.render();
+      el.replaceChild(taskComponent.element, editTaskComponent.element);
+      editTaskComponent.unrender();
     };
   }
 };

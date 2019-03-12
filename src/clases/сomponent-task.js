@@ -30,6 +30,5 @@ export default class ComponentTask extends Component {
     this._element = null;
   }
 
-  createListeners() {}
-  removeListeners() {}
+  update() {}
 }
