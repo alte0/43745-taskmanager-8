@@ -38,7 +38,8 @@ export default class TaskEdit extends ComponentTask {
       title: ``,
       color: ``,
       tags: new Set(),
-      dueDate: new Date(),
+      // dueDate: new Date(),
+      dueDate: ``,
       repeatingDays: {
         mo: false,
         tu: false,
